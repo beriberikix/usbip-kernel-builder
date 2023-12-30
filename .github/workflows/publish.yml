@@ -36,7 +36,7 @@ jobs:
           libelf-dev \
           bison \
           wget
-          apt-get build-dep linux
+          apt-get -y build-dep linux
 
       - name: Get source
         run: |
