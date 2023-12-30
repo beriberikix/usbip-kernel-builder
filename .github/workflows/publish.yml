@@ -53,8 +53,8 @@ jobs:
 
       - name: Get source
         run: |
-          apt-cache search linux-image-unsigned
-          # apt-get source linux-image-unsigned-$(uname -r)
+          # apt-cache search linux-image-unsigned
+          apt-get source linux-image-unsigned-6.2.0-1018-azure
 
       # # Run IDs are unique per repo but are reused on re-runs
       # - name: Save artifact
