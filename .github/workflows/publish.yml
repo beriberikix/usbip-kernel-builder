@@ -12,50 +12,55 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    # container: ubuntu:latest
+    container: ubuntu:jammy
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Pre-reqs for deps
+      - name: check
         run: |
-          echo 'deb-src http://archive.ubuntu.com/ubuntu jammy main' >> /etc/apt/sources.list
-          echo 'deb-src http://archive.ubuntu.com/ubuntu jammy-updates main' >> /etc/apt/sources.list
-          ln -fs /usr/share/zoneinfo/UTC /etc/localtime
+          uname -r
+          lsb_release -c
 
-      - name: OS deps
-        run: |
-          apt update
-          apt-get -y install --no-install-recommends \
-          ca-certificates \
-          git \
-          fakeroot \
-          build-essential \
-          ncurses-dev \
-          xz-utils \
-          libssl-dev \
-          bc \
-          flex \
-          libelf-dev \
-          bison \
-          wget
-          apt-get -y build-dep linux linux-image-generic
+      # - name: Pre-reqs for deps
+      #   run: |
+      #     echo 'deb-src http://archive.ubuntu.com/ubuntu jammy main' >> /etc/apt/sources.list
+      #     echo 'deb-src http://archive.ubuntu.com/ubuntu jammy-updates main' >> /etc/apt/sources.list
+      #     ln -fs /usr/share/zoneinfo/UTC /etc/localtime
 
-      - name: Get source
-        run: |
-          git clone --depth=1 git://git.launchpad.net/~ubuntu-kernel/ubuntu/+source/linux/+git/${{ inputs.UBUNTU_CODENAME }}
+      # - name: OS deps
+      #   run: |
+      #     apt update
+      #     apt-get -y install --no-install-recommends \
+      #     ca-certificates \
+      #     git \
+      #     fakeroot \
+      #     build-essential \
+      #     ncurses-dev \
+      #     xz-utils \
+      #     libssl-dev \
+      #     bc \
+      #     flex \
+      #     libelf-dev \
+      #     bison \
+      #     wget
+      #     apt-get -y build-dep linux linux-image-generic
 
-      - name: Build source
-        run: |
-          cd ${{ inputs.UBUNTU_CODENAME }}
-          chmod a+x debian/scripts/*
-          chmod a+x -R ./scripts
-          make olddefconfig
-          # make modules_prepare
-          # make M=drivers/usb/usbip modules -j2
-          make modules -j2
-          ls drivers/usb/usbip
+      # - name: Get source
+      #   run: |
+      #     git clone --depth=1 git://git.launchpad.net/~ubuntu-kernel/ubuntu/+source/linux/+git/${{ inputs.UBUNTU_CODENAME }}
+
+      # - name: Build source
+      #   run: |
+      #     cd ${{ inputs.UBUNTU_CODENAME }}
+      #     chmod a+x debian/scripts/*
+      #     chmod a+x -R ./scripts
+      #     make olddefconfig
+      #     # make modules_prepare
+      #     # make M=drivers/usb/usbip modules -j2
+      #     make modules -j2
+      #     ls drivers/usb/usbip
 
       # # Run IDs are unique per repo but are reused on re-runs
       # - name: Save artifact
