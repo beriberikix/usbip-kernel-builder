@@ -1,0 +1,65 @@
+name: Build USB/IP kernel module
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    container: ubuntu:latest
+
+    # env:
+    #   ZEPHYR_SDK_INSTALL_DIR: /opt/toolchains/zephyr-sdk-${{ inputs.ZEPHYR_SDK }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Sources for APT
+        run: |
+          add-apt-repository -y "deb-src http://archive.ubuntu.com/ubuntu jammy main"
+          add-apt-repository -y "deb-src http://archive.ubuntu.com/ubuntu jammy-updates main"
+
+      - name: Set TZ to UTC
+        run: |
+          ln -fs /usr/share/zoneinfo/UTC /etc/localtime
+
+      - name: Main deps
+        run: |
+          apt-get -y update
+          apt-get -y build-dep --no-install-recommends linux linux-image-generic
+
+      - name: Additional deps
+        run: |
+          apt-get -y install --no-install-recommends \
+          libncurses-dev \
+          gawk \
+          flex \
+          bison \
+          openssl \
+          dkms \
+          libelf-dev \
+          libudev-dev \
+          libpci-dev \
+          libiberty-dev \
+          autoconf \
+          llvm \
+          build-essential \
+          libncurses5-dev \
+          gcc \
+          bc \
+          dwarves
+
+      - name: Get source
+        run: |
+          apt-get source linux-image-unsigned-$(uname -r)
+
+      # # Run IDs are unique per repo but are reused on re-runs
+      # - name: Save artifact
+      #   if: inputs.ARTIFACT == true
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: build_artifacts_${{ github.run_id }}
+      #     path: |
+      #       build/zephyr/artifacts/*
