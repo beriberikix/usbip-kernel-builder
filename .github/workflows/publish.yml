@@ -18,8 +18,8 @@ jobs:
 
       - name: Sources for APT
         run: |
-          add-apt-repository -y "deb-src http://archive.ubuntu.com/ubuntu jammy main"
-          add-apt-repository -y "deb-src http://archive.ubuntu.com/ubuntu jammy-updates main"
+          echo 'deb-src http://archive.ubuntu.com/ubuntu jammy main' >> /etc/apt/sources.list \
+          echo 'deb-src http://archive.ubuntu.com/ubuntu jammy-updates main' >> /etc/apt/sources.list
 
       - name: Set TZ to UTC
         run: |
