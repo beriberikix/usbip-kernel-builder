@@ -33,7 +33,9 @@ jobs:
           flex \
           libelf-dev \
           bison \
-          wget
+          wget \
+          linux \
+          linux-image-generic
 
       - name: Get source
         run: |
