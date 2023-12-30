@@ -38,10 +38,13 @@ jobs:
       - name: Get source
         run: |
           git clone --depth=1 git://git.launchpad.net/~ubuntu-kernel/ubuntu/+source/linux/+git/${{ inputs.UBUNTU_CODENAME }}
-          ls ${{ inputs.UBUNTU_CODENAME }}
-          # wget https://github.com/torvalds/linux/archive/refs/tags/${{ inputs.KERNEL_VERSION }}.tar.gz
-          # mkdir linux && tar xvf ${{ inputs.KERNEL_VERSION }}.tar.gz -C linux --strip-components 1
-          # ls linux
+
+      - name: Build source
+        run: |
+          chmod a+x debian/scripts/*
+          chmod a+x -R ./scripts
+          make olddefconfig
+
 
       # # Run IDs are unique per repo but are reused on re-runs
       # - name: Save artifact
