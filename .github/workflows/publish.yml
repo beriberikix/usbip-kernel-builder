@@ -34,7 +34,7 @@ jobs:
           libelf-dev \
           bison \
           wget \
-          linux \
+          # linux \
           linux-image-generic
 
       - name: Get source
