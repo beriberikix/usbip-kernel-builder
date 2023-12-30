@@ -22,6 +22,7 @@ jobs:
         run: |
           apt update
           apt-get -y install --no-install-recommends \
+          ca-certificates \
           git \
           fakeroot \
           build-essential \
