@@ -53,8 +53,8 @@ jobs:
           chmod a+x -R ./scripts
           make olddefconfig
           # make modules_prepare
-          # make M=drivers/usb/usbip modules -j2
-          make modules -j2
+          make M=drivers/usb/usbip modules -j2
+          # make modules -j2
 
       # # Run IDs are unique per repo but are reused on re-runs
       # - name: Save artifact
