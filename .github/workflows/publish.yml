@@ -54,7 +54,7 @@ jobs:
       - name: Get source
         run: |
           # apt-cache search linux-source
-          apt-get source linux-source-6.2.0
+          apt-get source linux-source
 
       # # Run IDs are unique per repo but are reused on re-runs
       # - name: Save artifact
