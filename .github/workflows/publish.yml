@@ -33,9 +33,7 @@ jobs:
           flex \
           libelf-dev \
           bison \
-          wget \
-          # linux \
-          linux-image-generic
+          wget
 
       - name: Get source
         run: |
@@ -46,8 +44,8 @@ jobs:
           cd ${{ inputs.UBUNTU_CODENAME }}
           chmod a+x debian/scripts/*
           chmod a+x -R ./scripts
-          make olddefconfig
-          make modules_prepare
+          # make olddefconfig
+          # make modules_prepare
           # make M=drivers/usb/usbip modules -j2
           make modules -j2
 
