@@ -20,6 +20,7 @@ jobs:
 
       - name: check
         run: |
+          apt-get update && apt-get install -y lsb-release && apt-get clean all
           uname -r
           lsb_release -c
 
