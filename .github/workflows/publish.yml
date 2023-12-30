@@ -18,46 +18,23 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Sources for APT
-        run: |
-          echo 'deb-src http://archive.ubuntu.com/ubuntu jammy main' >> /etc/apt/sources.list \
-          echo 'deb-src http://archive.ubuntu.com/ubuntu jammy-updates main' >> /etc/apt/sources.list
-
-      - name: Set TZ to UTC
-        run: |
-          ln -fs /usr/share/zoneinfo/UTC /etc/localtime
-
-      - name: Main deps
-        run: |
-          apt-get -y update
-          apt-get -y build-dep --no-install-recommends linux linux-image-generic
-
-      - name: Additional deps
+      - name: OS deps
         run: |
           apt-get -y install --no-install-recommends \
-          libncurses-dev \
-          gawk \
-          flex \
-          bison \
-          openssl \
           git \
-          dkms \
-          libelf-dev \
-          libudev-dev \
-          libpci-dev \
-          libiberty-dev \
-          autoconf \
-          llvm \
+          fakeroot \
           build-essential \
-          libncurses5-dev \
-          gcc \
+          ncurses-dev \
+          xz-utils \
+          libssl-dev \
           bc \
-          dwarves
+          flex \
+          libelf-dev \
+          bison \
+          wget
 
       - name: Get source
         run: |
-          # # apt-cache search linux-source
-          # apt-get source linux-source
           wget https://github.com/torvalds/linux/archive/refs/tags/${{ inputs.KERNEL_VERSION }}.tar.gz
 
       # # Run IDs are unique per repo but are reused on re-runs
