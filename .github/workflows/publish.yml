@@ -53,7 +53,7 @@ jobs:
 
       - name: Get source
         run: |
-          apt-cache search linux-source
+          apt-cache search linux-image-unsigned
           # apt-get source linux-image-unsigned-$(uname -r)
 
       # # Run IDs are unique per repo but are reused on re-runs
