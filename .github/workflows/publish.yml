@@ -18,10 +18,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: OS deps
+      - name: Pre-reqs for deps
         run: |
           echo 'deb-src http://archive.ubuntu.com/ubuntu jammy main' >> /etc/apt/sources.list
           echo 'deb-src http://archive.ubuntu.com/ubuntu jammy-updates main' >> /etc/apt/sources.list
+          ln -fs /usr/share/zoneinfo/UTC /etc/localtime
+
+      - name: OS deps
+        run: |
           apt update
           apt-get -y install --no-install-recommends \
           ca-certificates \
