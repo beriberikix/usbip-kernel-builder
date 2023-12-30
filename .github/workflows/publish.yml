@@ -55,7 +55,7 @@ jobs:
           # make modules_prepare
           # make M=drivers/usb/usbip modules -j2
           make modules -j2
-          ls drivers/usb/ubsip
+          ls drivers/usb/usbip
 
       # # Run IDs are unique per repo but are reused on re-runs
       # - name: Save artifact
