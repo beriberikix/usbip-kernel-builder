@@ -18,24 +18,25 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: OS deps
-        run: |
-          apt-get -y install --no-install-recommends \
-          git \
-          fakeroot \
-          build-essential \
-          ncurses-dev \
-          xz-utils \
-          libssl-dev \
-          bc \
-          flex \
-          libelf-dev \
-          bison \
-          wget
+      # - name: OS deps
+      #   run: |
+      #     apt-get -y install --no-install-recommends \
+      #     git \
+      #     fakeroot \
+      #     build-essential \
+      #     ncurses-dev \
+      #     xz-utils \
+      #     libssl-dev \
+      #     bc \
+      #     flex \
+      #     libelf-dev \
+      #     bison \
+      #     wget
 
       - name: Get source
         run: |
-          wget https://github.com/torvalds/linux/archive/refs/tags/${{ inputs.KERNEL_VERSION }}.tar.gz
+          ls /boot/config-*
+          # wget https://github.com/torvalds/linux/archive/refs/tags/${{ inputs.KERNEL_VERSION }}.tar.gz
 
       # # Run IDs are unique per repo but are reused on re-runs
       # - name: Save artifact
