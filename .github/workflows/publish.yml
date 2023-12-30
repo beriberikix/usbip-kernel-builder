@@ -41,6 +41,7 @@ jobs:
 
       - name: Build source
         run: |
+          cd ${{ inputs.UBUNTU_CODENAME }}
           chmod a+x debian/scripts/*
           chmod a+x -R ./scripts
           make olddefconfig
