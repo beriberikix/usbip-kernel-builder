@@ -38,7 +38,7 @@ jobs:
       - name: Get source
         run: |
           wget https://github.com/torvalds/linux/archive/refs/tags/${{ inputs.KERNEL_VERSION }}.tar.gz
-          tar xvf linux*
+          tar xvf ${{ inputs.KERNEL_VERSION }}.tar.gz
 
       # # Run IDs are unique per repo but are reused on re-runs
       # - name: Save artifact
