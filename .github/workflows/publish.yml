@@ -18,20 +18,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # - name: OS deps
-      #   run: |
-      #     apt-get -y install --no-install-recommends \
-      #     git \
-      #     fakeroot \
-      #     build-essential \
-      #     ncurses-dev \
-      #     xz-utils \
-      #     libssl-dev \
-      #     bc \
-      #     flex \
-      #     libelf-dev \
-      #     bison \
-      #     wget
+      - name: OS deps
+        run: |
+          apt-get -y install --no-install-recommends \
+          git \
+          fakeroot \
+          build-essential \
+          ncurses-dev \
+          xz-utils \
+          libssl-dev \
+          bc \
+          flex \
+          libelf-dev \
+          bison \
+          wget
 
       - name: Get source
         run: |
