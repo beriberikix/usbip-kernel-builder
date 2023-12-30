@@ -2,15 +2,17 @@ name: Build USB/IP kernel module
 
 on:
   workflow_dispatch:
+    inputs:
+      KERNEL_VERSION:
+        required: true
+        type: string
+        default: v6.2
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     container: ubuntu:latest
-
-    # env:
-    #   ZEPHYR_SDK_INSTALL_DIR: /opt/toolchains/zephyr-sdk-${{ inputs.ZEPHYR_SDK }}
 
     steps:
       - name: Checkout
@@ -38,6 +40,7 @@ jobs:
           flex \
           bison \
           openssl \
+          git \
           dkms \
           libelf-dev \
           libudev-dev \
@@ -53,8 +56,9 @@ jobs:
 
       - name: Get source
         run: |
-          # apt-cache search linux-source
-          apt-get source linux-source
+          # # apt-cache search linux-source
+          # apt-get source linux-source
+          wget https://github.com/torvalds/linux/archive/refs/tags/${{ inputs.KERNEL_VERSION }}.tar.gz
 
       # # Run IDs are unique per repo but are reused on re-runs
       # - name: Save artifact
