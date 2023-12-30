@@ -3,10 +3,10 @@ name: Build USB/IP kernel module
 on:
   workflow_dispatch:
     inputs:
-      KERNEL_VERSION:
+      UBUNTU_CODENAME:
         required: true
         type: string
-        default: v6.2
+        default: jammy
 
 jobs:
   build:
@@ -37,9 +37,11 @@ jobs:
 
       - name: Get source
         run: |
-          wget https://github.com/torvalds/linux/archive/refs/tags/${{ inputs.KERNEL_VERSION }}.tar.gz
-          mkdir linux && tar xvf ${{ inputs.KERNEL_VERSION }}.tar.gz -C linux --strip-components 1
-          ls linux
+          git clone --depth=1 git://git.launchpad.net/~ubuntu-kernel/ubuntu/+source/linux/+git/${{ inputs.UBUNTU_CODENAME }}
+          ls ${{ inputs.UBUNTU_CODENAME }}
+          # wget https://github.com/torvalds/linux/archive/refs/tags/${{ inputs.KERNEL_VERSION }}.tar.gz
+          # mkdir linux && tar xvf ${{ inputs.KERNEL_VERSION }}.tar.gz -C linux --strip-components 1
+          # ls linux
 
       # # Run IDs are unique per repo but are reused on re-runs
       # - name: Save artifact
